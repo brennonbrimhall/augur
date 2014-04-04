@@ -19,7 +19,7 @@ Therefore, for n matches, we have 3^n possible combinations of outcomes.  Howeve
 
 ###What about Tiebreakers?
 
-Tiebreakers, like Assist Points, Auto Points, Truss and Catch Points, and Teleop Points are manually entered.  Since there's no really good way to predict how these numbers will end up.  We leave it to the human to predict these values.
+Tiebreakers, like Assist Points, Auto Points, Truss and Catch Points, and Teleop Points are manually entered.  Since there's no really good way to predict how these numbers will end up, we leave it to the human to predict these values.
 
 ##Form follows Function
 Because predicting rankings is so computationally intensive, augur uses a distributed computing model.  This means that augur actually runs as a set of seperate programs.  The augur server delegates computation to augur workers -- these workers could be processes that run concurrently on the same computer, computers on the same network, or computers connected via the internet.  This parallelism helps increase the execution speed and makes prediction viable.
