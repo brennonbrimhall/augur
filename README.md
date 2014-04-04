@@ -1,7 +1,8 @@
 #augur
 
-noun
-  1.(in ancient Rome) a religious official who observed natural signs, esp. the behavior of birds, interpreting these as an indication of divine approval or disapproval of a proposed action.
+_noun_
+
+  1. (in ancient Rome) a religious official who observed natural signs, esp. the behavior of birds, interpreting these as an indication of divine approval or disapproval of a proposed action.
   2. An awesome rankings predictor for FRC.
 
 ##Why do we need a rankings predictor?
