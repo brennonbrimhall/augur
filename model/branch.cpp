@@ -1,6 +1,10 @@
 #include "branch.h"
 #include <algorithm>
+#include <vector>
+#include "team.h"
 
+Branch::Branch(std::vector<Team>& teams, double probability) : teams(teams), probability(probability) {
+};
 
 /**
 	Compare team1 team with team2.  Returns true if the team represented by the team1
@@ -8,30 +12,30 @@
 	lower (i.e., ranked 40th vs. ranked 1st), and false if they are ranked identically.
 */
 
-bool Branch::compare(Team const & team1, Team const & team2){
-	if(team1.getFirstSort() > team.getFirstSort()){
+bool Branch::compare(Team & team1, Team & team2){
+	if(team1.getFirstSort() > team2.getFirstSort()){
 		return true;
-	}else if(team1.getFirstSort() < team.getFirstSort()){
+	}else if(team1.getFirstSort() < team2.getFirstSort()){
 		return false;
 	}else{
-		if(team1.getSecondSort() > team.getSecondSort()){
+		if(team1.getSecondSort() > team2.getSecondSort()){
 			return true;
-		}else if(team1.getSecondSort() < team.getSecondSort()){
+		}else if(team1.getSecondSort() < team2.getSecondSort()){
 			return false;
 		}else{
-			if(team1.getThirdSort() > team.getThirdSort()){
+			if(team1.getThirdSort() > team2.getThirdSort()){
 				return true;
-			}else if(team1.getThirdSort() < team.getThirdSort()){
+			}else if(team1.getThirdSort() < team2.getThirdSort()){
 				return false;
 			}else{
-				if(team1.getFourthSort() > team.getFourthSort()){
+				if(team1.getFourthSort() > team2.getFourthSort()){
 					return true;
-				}else if(team1.getFourthSort() < team.getFourthSort()){
+				}else if(team1.getFourthSort() < team2.getFourthSort()){
 					return false;
 				}else{
-					if(team1.getFifthSort() > team.getFifthSort()){
+					if(team1.getFifthSort() > team2.getFifthSort()){
 						return true;
-					}else if(team1.getFifthSort() < team.getFifthSort(){
+					}else if(team1.getFifthSort() < team2.getFifthSort()){
 						return false;
 					}else{
 						return false;
@@ -43,5 +47,28 @@ bool Branch::compare(Team const & team1, Team const & team2){
 }
 
 void Branch::sort(){
-	std::sort()
+	//std::sort()
+}
+
+double Branch::getProbability(){
+	return probability;
+}
+
+Team* Branch::findTeam(int teamNumber){
+	for (int i = 0; i < teams.size(); i++) {
+		if(teams[i].getTeamNumber() == teamNumber){
+			return &teams[i];
+		}
+	}
+	//return null_ptr;
+}
+
+int main(){
+	std::vector<Team> teams;
+	teams.push_back(Team(20, 1, 1, 1, 1, 1));
+	teams.push_back(Team(469, 2, 2, 2, 2, 2));
+	teams.push_back(Team(1114, 3, 3, 3, 3, 3));
+	Branch branch;
+	branch = Branch(&teams, .5);
+	return 0;
 }
