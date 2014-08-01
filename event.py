@@ -50,7 +50,7 @@ class Event:
 				self.findTeam(teams, self.matches[i].getBlue2()).win()
 				self.findTeam(teams, self.matches[i].getBlue3()).win()
 			currentNumber = currentNumber / 2
-		teams.sort()
+		teams.sort(reverse=True)
 		self.updateSummary(teams, probability)
 
 	def updateSummary(self, teams, probability):
