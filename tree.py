@@ -16,14 +16,14 @@ class Node:
 	def getChild(self, key):
 		return self.children[key]
 
-	def log(self, level=0):
+	def log(self, level=0, initialProbability=1):
 		padding = ""
 		for i in range(0, level):
 			padding += "\t"
 		sortedNodes = sorted(self.children.items(), key=lambda x: x[1].probability, reverse=True)
 		for key, value in sortedNodes:
-			print(padding+"Rank "+str((level+1))+": "+str(key)+" @ "+str(round(value.getProbability()*100, 2)))+"%"
-			value.log(level+1)
+			print(padding+"Rank "+str((level+1))+": "+str(key)+" @ "+str(round(value.getProbability()/initialProbability*100, 2)))+"%"
+			value.log(level+1, value.getProbability())
 
 class Root:
 	def __init__(self):
@@ -40,5 +40,5 @@ class Root:
 		#Sort by probability
 		sortedNodes = sorted(self.children.items(), key=lambda x: x[1].probability, reverse=True)
 		for key, value in sortedNodes:
-			print("Rank 1: "+str(key)+" @" +str(round(value.getProbability()*100, 2)))+"%"
+			print("Rank 1: "+str(key)+" @ " +str(round(value.getProbability()*100, 2)))+"%"
 			value.log(1)
