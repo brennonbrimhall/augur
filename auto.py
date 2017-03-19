@@ -2,7 +2,7 @@ from urllib import FancyURLopener
 import json
 
 year = "2017"
-eventCode = "mabos"
+eventCode = "casf"
 event = year + eventCode
 depth = "12"
 
@@ -78,3 +78,6 @@ for match in matches:
 		print eventCode + ".addMatch(" + red1 + ",\t" + red2 + ",\t" + red3 + ",\t" + blue1 + ",\t" + blue2 + ",\t" + blue3 + ",\t" + prob + ")\t#Match " + matchNumber
 	else:
 		print "#" + eventCode + ".addMatch(" + red1 + ",\t" + red2 + ",\t" + red3 + ",\t" + blue1 + ",\t" + blue2 + ",\t" + blue3 + ",\t" + prob + ")\t#Match " + matchNumber
+
+print "" #newline
+print eventCode + ".calculate()"
