@@ -1,10 +1,23 @@
+#!/usr/bin/env python
+
+import argparse
+from datetime import datetime
 from urllib import FancyURLopener
 import json
 
-year = "2017"
-eventCode = "casf"
+parser = argparse.ArgumentParser(description='Compute FRC rankings simulations.')
+parser.add_argument('eventcode')
+parser.add_argument('depth')
+
+args = parser.parse_args()
+
+year = datetime.now().year
+eventCode = args.eventcode
 event = year + eventCode
-depth = "12"
+depth = args.depth
+
+#put into file
+file = open(year+eventCode+'.py')
 
 class AugurOpener(FancyURLopener):
 	version = 'brennon-brimhall:augur:2'
@@ -26,10 +39,10 @@ url = "https://www.thebluealliance.com/api/v2/event/" + event +"/stats?X-TBA-App
 response = opener.open(url)
 stats = json.loads(response.read())["oprs"]
 
-print "import event"
-print eventCode + " = event.Event(" + depth + ")"
+file.write("import event")
+file.write(eventCode + " = event.Event(" + depth + ")")
 
-print "" #will put in a newline
+file.write("") #will put in a newline
 
 #counter to ignore the header
 i = 0;
@@ -46,10 +59,10 @@ for rank in rankings:
 		fourthSort = str(round((rank[6] / matchesPlayed), 2))
 		fifthSort = str(round((rank[7] / matchesPlayed), 2))
 
-		print eventCode + ".addTeam(" + team + ",\t" + rp + ",\t" + firstSort + ",\t" + secondSort + ",\t" + thirdSort + ",\t" + fourthSort + ",\t" + fifthSort + ")"
+		file.write(eventCode + ".addTeam(" + team + ",\t" + rp + ",\t" + firstSort + ",\t" + secondSort + ",\t" + thirdSort + ",\t" + fourthSort + ",\t" + fifthSort + ")")
 	i += 1
 
-print "" #will put int a newline
+file.write("") #will put int a newline
 
 for match in matches:
 	matchType = match['comp_level']
@@ -75,9 +88,10 @@ for match in matches:
 		prob = str(round((stats[red1] + stats[red2] + stats[red3]) / (stats[red1] + stats[red2] + stats[red3] + stats[blue1] + stats[blue2] + stats[blue3]),2))
 
 	if (match['score_breakdown'] == None):
-		print eventCode + ".addMatch(" + red1 + ",\t" + red2 + ",\t" + red3 + ",\t" + blue1 + ",\t" + blue2 + ",\t" + blue3 + ",\t" + prob + ")\t#Match " + matchNumber
+		file.write(eventCode + ".addMatch(" + red1 + ",\t" + red2 + ",\t" + red3 + ",\t" + blue1 + ",\t" + blue2 + ",\t" + blue3 + ",\t" + prob + ")\t#Match " + matchNumber)
 	else:
-		print "#" + eventCode + ".addMatch(" + red1 + ",\t" + red2 + ",\t" + red3 + ",\t" + blue1 + ",\t" + blue2 + ",\t" + blue3 + ",\t" + prob + ")\t#Match " + matchNumber
+		file.write("#" + eventCode + ".addMatch(" + red1 + ",\t" + red2 + ",\t" + red3 + ",\t" + blue1 + ",\t" + blue2 + ",\t" + blue3 + ",\t" + prob + ")\t#Match " + matchNumber)
 
-print "" #newline
-print eventCode + ".calculate()"
+file.write("") #newline
+file.write(eventCode + ".calculate()")
+file.write("print\"\"")
